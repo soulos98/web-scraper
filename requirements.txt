@@ -1,0 +1,6 @@
+flask
+selenium
+python-dotenv
+selenium-stealth
+pandas
+requests
