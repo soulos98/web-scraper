@@ -7,11 +7,11 @@ from dotenv import load_dotenv
 from time import sleep
 
 
-def setDriver() -> webdriver:
+def setDriver(proxy) -> webdriver:
     chrome_options = Options()
 
-    chrome_options.add_argument("--proxy-server=socks5://127.0.0.1:9150")
-    chrome_options.add_argument('start-maximized')
+    chrome_options.add_argument(f"--proxy-server={proxy}")
+    # chrome_options.add_argument('start-maximized')
 
     chrome_options.add_experimental_option(
         "excludeSwitches", ["enable-automation"])
@@ -31,8 +31,13 @@ def setDriver() -> webdriver:
     return driver
 
 
-newDriver: webdriver = setDriver()
-# newDriver.get("https://ipv6.icanhazip.com/")
-newDriver.get("https://amazon.com")
-
-sleep(20)
+with open("Proxies/filteredProxies.txt") as proxyList:
+    for proxy in proxyList:
+        try:
+            newDriver: webdriver = setDriver(proxy)
+            newDriver.get("https://google.com")
+            print(f"Proxy Success: {proxy}")
+            sleep(20)
+        except:
+            print(f"Proxy failed: {proxy}")
+# newDriver.get("https://amazon.com")

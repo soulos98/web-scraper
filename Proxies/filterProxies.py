@@ -62,4 +62,8 @@ for thread in threads:
 print(
     f"Original List length {len(df_List)} \nNew List length {len(workingProxies)}")
 
-print(workingProxies)
+filtered = open('filteredProxies.txt', 'w')
+
+filtered.write(workingProxies)
+
+filtered.close()
